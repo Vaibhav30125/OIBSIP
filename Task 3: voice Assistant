@@ -1,0 +1,35 @@
+import datetime
+import webbrowser
+
+def speak(text):
+    print(text)
+
+def respond(command):
+    if "hello" in command:
+        speak("Hello! How can I assist you today?")
+    elif "time" in command:
+        now = datetime.datetime.now()
+        current_time = now.strftime("%H:%M")
+        speak(f"The current time is {current_time}.")
+    elif "date" in command:
+        today = datetime.date.today()
+        speak(f"Today's date is {today}.")
+    elif "search" in command:
+        search_query = command.replace("search", "").strip()
+        url = f"https://www.google.com/search?q={search_query}"
+        webbrowser.open(url)
+        speak(f"Here are the results for {search_query}.")
+    else:
+        speak("I'm sorry, I can't help with that.")
+
+def main():
+    speak("Hello! I am your text-based voice assistant.")
+    while True:
+        command = input("What can I do for you? (type 'exit' to quit): ").lower()
+        if command in ["exit", "quit"]:
+            speak("Goodbye!")
+            break
+        respond(command)
+
+if __name__ == "__main__":
+    main()
